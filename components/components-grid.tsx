@@ -162,7 +162,7 @@ export function ComponentsGrid() {
         {/* Section header */}
         <div ref={ref} className="fade-in mb-24">
           <p className="text-accent font-mono text-sm tracking-wider uppercase mb-4 text-center">
-            15 skills
+            {SKILL_CATEGORIES.reduce((sum, cat) => sum + cat.skills.length, 0)} skills
           </p>
           <h2 className="text-4xl md:text-6xl font-extrabold text-center tracking-tight leading-tight">
             Commands that do
@@ -198,7 +198,7 @@ export function ComponentsGrid() {
             <div className="bg-surface rounded-2xl border border-border p-6">
               <div className="flex items-baseline gap-2 mb-5">
                 <h3 className="font-bold text-lg text-foreground">Rules</h3>
-                <span className="text-muted font-mono text-xs">5</span>
+                <span className="text-muted font-mono text-xs">{RULES.length}</span>
               </div>
               <p className="text-muted text-xs mb-5 leading-relaxed">
                 Always active. Loaded into every conversation. Shape how Claude thinks without you typing anything.
@@ -212,7 +212,7 @@ export function ComponentsGrid() {
             <div className="bg-surface rounded-2xl border border-border p-6">
               <div className="flex items-baseline gap-2 mb-5">
                 <h3 className="font-bold text-lg text-foreground">Agents</h3>
-                <span className="text-muted font-mono text-xs">3</span>
+                <span className="text-muted font-mono text-xs">{AGENTS.length}</span>
               </div>
               <p className="text-muted text-xs mb-5 leading-relaxed">
                 Specialized subagents that skills spawn under the hood. The critic reviews, the explorer researches, the writer publishes.
@@ -227,7 +227,7 @@ export function ComponentsGrid() {
               <div className="bg-surface rounded-2xl border border-border p-6">
                 <div className="flex items-baseline gap-2 mb-5">
                   <h3 className="font-bold text-lg text-foreground">Hooks</h3>
-                  <span className="text-muted font-mono text-xs">2</span>
+                  <span className="text-muted font-mono text-xs">{HOOKS.length}</span>
                 </div>
                 <p className="text-muted text-xs mb-5 leading-relaxed">
                   Automatic triggers on session events. You never invoke them, they just watch.

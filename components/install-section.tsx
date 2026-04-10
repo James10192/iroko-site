@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useCopy } from "./use-copy";
 import { useFadeIn } from "./use-fade-in";
 
 const METHODS = [
@@ -43,16 +44,10 @@ const PLUGINS = [
 
 export function InstallSection() {
   const [active, setActive] = useState("npx");
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useCopy();
   const ref = useFadeIn();
   const refPlugins = useFadeIn();
   const method = METHODS.find((m) => m.id === active)!;
-
-  const copyCommand = () => {
-    navigator.clipboard.writeText(method.command);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <section className="px-6 py-28 md:py-36 border-t border-border">
@@ -107,7 +102,7 @@ export function InstallSection() {
               <div className="flex items-center gap-3">
                 <span className="text-muted text-xs font-mono">{method.note}</span>
                 <button
-                  onClick={copyCommand}
+                  onClick={() => copy(method.command)}
                   className="text-muted hover:text-accent text-xs font-mono px-2.5 py-1 rounded-lg border border-border hover:border-accent/40 transition-all duration-200 cursor-pointer"
                 >
                   {copied ? "copied ✓" : "copy"}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCopy } from "./use-copy";
 
 const TREE = [
   "        ⣠⣤⣤⣤⣤⣄",
@@ -18,14 +18,8 @@ const TREE = [
 ];
 
 export function Hero() {
-  const [copied, setCopied] = useState(false);
+  const { copied, copy } = useCopy();
   const command = "npx @james10192/iroko init";
-
-  const copy = () => {
-    navigator.clipboard.writeText(command);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <section className="relative flex flex-col items-center justify-center min-h-dvh px-6 overflow-hidden grid-bg">
@@ -54,7 +48,7 @@ export function Hero() {
       </p>
 
       <button
-        onClick={copy}
+        onClick={() => copy(command)}
         className="animate-hero-delay-3 animate-glow group flex items-center gap-3 bg-surface border border-border hover:border-accent rounded-2xl px-7 py-4 font-mono text-sm md:text-base transition-all duration-300 cursor-pointer mt-10"
       >
         <span className="text-accent select-none font-semibold">$</span>
@@ -83,7 +77,7 @@ export function Hero() {
           npm
         </a>
         <span className="text-border">·</span>
-        <span className="text-muted">v2.0.0</span>
+        <span className="text-muted">v2.0.1</span>
       </nav>
 
       {/* Scroll indicator */}

@@ -1,3 +1,11 @@
+const FOOTER_LINKS = [
+  { label: "GitHub", href: "https://github.com/James10192/iroko" },
+  { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/marcel-djedje-li-099490235/" },
+  { label: "Portfolio", href: "https://astonishing-sprite-8fb0c9.netlify.app/" },
+  { label: "MIT", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
+];
+
 export function Footer() {
   return (
     <footer className="px-6 py-20 border-t border-border">
@@ -17,13 +25,7 @@ export function Footer() {
           Abidjan, Cote d&apos;Ivoire · KLASSCI · MailPulse · E-pagne
         </p>
         <div className="flex items-center justify-center gap-8 mt-8">
-          {[
-            { label: "GitHub", href: "https://github.com/James10192/iroko" },
-            { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
-            { label: "LinkedIn", href: "https://www.linkedin.com/in/marcel-djedje-li-099490235/" },
-            { label: "Portfolio", href: "https://astonishing-sprite-8fb0c9.netlify.app/" },
-            { label: "MIT", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
-          ].map((link) => (
+          {FOOTER_LINKS.map((link) => (
             <a
               key={link.label}
               href={link.href}

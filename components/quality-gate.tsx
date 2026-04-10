@@ -2,6 +2,20 @@
 
 import { useFadeIn } from "./use-fade-in";
 
+const GATE_RESULTS = [
+  { label: "Architecture", status: "PASS", color: "text-accent" },
+  { label: "Quality vs Speed", status: "PASS", color: "text-accent" },
+  { label: "Production-ready", status: "WARN", color: "text-yellow-400" },
+  { label: "SOLID / Liskov", status: "PASS", color: "text-accent" },
+];
+
+const AXES = [
+  { axis: "Architecture", desc: "God classes, mixed responsibilities, files over 300 lines with 3+ concerns" },
+  { axis: "Quality", desc: "N+1 queries, debug code left behind, copy-paste duplication" },
+  { axis: "Production", desc: "Exposed stack traces, unprotected routes, missing database transactions" },
+  { axis: "SOLID", desc: "Liskov violations, hardcoded roles instead of permissions, broken overrides" },
+];
+
 export function QualityGate() {
   const ref = useFadeIn();
   const refStory = useFadeIn();
@@ -38,12 +52,7 @@ export function QualityGate() {
             </p>
 
             <div className="space-y-4">
-              {[
-                { axis: "Architecture", desc: "God classes, mixed responsibilities, files over 300 lines with 3+ concerns" },
-                { axis: "Quality", desc: "N+1 queries, debug code left behind, copy-paste duplication" },
-                { axis: "Production", desc: "Exposed stack traces, unprotected routes, missing database transactions" },
-                { axis: "SOLID", desc: "Liskov violations, hardcoded roles instead of permissions, broken overrides" },
-              ].map((item) => (
+              {AXES.map((item) => (
                 <div key={item.axis} className="group flex items-start gap-3 hover:translate-x-1 transition-transform duration-200">
                   <span className="text-accent font-mono text-sm font-semibold shrink-0 mt-0.5 w-24">
                     {item.axis}
@@ -71,12 +80,7 @@ export function QualityGate() {
                 <div className="text-muted/50 text-xs mb-6">$ git commit -m &quot;feat: add user endpoint&quot;</div>
 
                 <div className="space-y-4">
-                  {[
-                    { label: "Architecture", status: "PASS", color: "text-accent" },
-                    { label: "Quality vs Speed", status: "PASS", color: "text-accent" },
-                    { label: "Production-ready", status: "WARN", color: "text-yellow-400" },
-                    { label: "SOLID / Liskov", status: "PASS", color: "text-accent" },
-                  ].map((row) => (
+                  {GATE_RESULTS.map((row) => (
                     <div key={row.label} className="flex justify-between items-center">
                       <span className="text-muted">{row.label}</span>
                       <span className={`${row.color} font-semibold`}>{row.status}</span>

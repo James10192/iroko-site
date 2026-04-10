@@ -44,8 +44,8 @@ const HOOKS = [
 
 function ComponentCard({ name, desc }: { name: string; desc: string }) {
   return (
-    <div className="group flex items-start gap-3 p-3 -mx-3 rounded-lg hover:bg-surface transition-colors duration-200">
-      <span className="font-mono text-sm text-accent shrink-0 mt-0.5">{name}</span>
+    <div className="group flex items-start gap-3 px-4 py-3 -mx-4 rounded-xl hover:bg-surface-hover border border-transparent hover:border-border transition-all duration-200">
+      <span className="font-mono text-[13px] text-accent font-medium shrink-0 mt-px">{name}</span>
       <span className="text-muted text-sm">{desc}</span>
     </div>
   );
@@ -55,19 +55,24 @@ function Section({
   title,
   count,
   items,
+  accent,
 }: {
   title: string;
   count: number;
   items: { name: string; desc: string }[];
+  accent?: boolean;
 }) {
   const ref = useFadeIn();
   return (
     <div ref={ref} className="fade-in">
-      <h3 className="text-foreground font-bold text-xl mb-1">
-        {title}
-        <span className="text-muted font-normal text-sm ml-2">{count}</span>
-      </h3>
-      <div className="stagger-children visible mt-4 space-y-0">
+      <div className="flex items-baseline gap-3 mb-6">
+        <h3 className={`font-bold text-2xl tracking-tight ${accent ? "text-gradient" : "text-foreground"}`}>
+          {title}
+        </h3>
+        <span className="text-muted font-mono text-sm">{count}</span>
+        <div className="flex-1 h-px bg-border" />
+      </div>
+      <div className="stagger visible space-y-0">
         {items.map((item) => (
           <ComponentCard key={item.name} {...item} />
         ))}
@@ -79,27 +84,31 @@ function Section({
 export function ComponentsGrid() {
   const ref = useFadeIn();
   return (
-    <section className="px-6 py-24 md:py-32 border-t border-border">
+    <section className="px-6 py-28 md:py-36">
       <div className="max-w-5xl mx-auto">
-        <div ref={ref} className="fade-in">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">
-            What&apos;s <span className="text-gradient">inside</span>
+        <div ref={ref} className="fade-in mb-20">
+          <p className="text-accent font-mono text-sm tracking-wider uppercase mb-4 text-center">
+            Components
+          </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center tracking-tight">
+            What&apos;s inside
           </h2>
-          <p className="text-muted text-center mb-16 text-lg">
-            28 components, each does one thing well.
+          <p className="text-muted text-center mt-4 text-lg max-w-lg mx-auto">
+            28 components. Each does one thing well.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20">
-          <Section title="Rules" count={5} items={RULES} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
+          <Section title="Rules" count={5} items={RULES} accent />
           <Section title="Agents" count={6} items={AGENTS} />
-          <Section title="Skills" count={15} items={SKILLS} />
+          <Section title="Skills" count={15} items={SKILLS} accent />
           <div>
             <Section title="Hooks" count={2} items={HOOKS} />
-            <div className="mt-8 p-4 bg-surface rounded-xl border border-border">
+            <div className="mt-10 p-5 bg-surface rounded-2xl border border-border">
               <p className="text-muted text-sm">
                 <span className="text-accent font-mono font-medium">+ 2 sounds</span>{" "}
-                Cross-platform notification MP3s. PowerShell, afplay, paplay.
+                — cross-platform notification MP3s.
+                <span className="text-muted/60 block mt-1 text-xs">PowerShell · afplay · paplay</span>
               </p>
             </div>
           </div>

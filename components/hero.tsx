@@ -2,16 +2,20 @@
 
 import { useState } from "react";
 
-const TREE = `      @@@@
-     @@@@@@@@
-    @@@@@@@@@@
-   @@@@@@@@@@@@
-  @@@@@@@@@@@@@@
-   @@@@@@@@@@@@
-    @@@@@@@@@@
-     @@@@@@@@
-       ||||
-       ||||`;
+const TREE = [
+  "        ⣠⣤⣤⣤⣤⣄",
+  "      ⣴⣿⣿⣿⣿⣿⣿⣿⣦",
+  "    ⣰⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣆",
+  "   ⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧",
+  "  ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿",
+  "   ⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟",
+  "    ⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁",
+  "      ⠈⠛⣿⣿⣿⣿⠛⠁",
+  "         ⠿⠿",
+  "         ║║",
+  "         ║║",
+  "         ║║",
+];
 
 export function Hero() {
   const [copied, setCopied] = useState(false);
@@ -24,54 +28,76 @@ export function Hero() {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center px-6 pt-28 pb-24 md:pt-40 md:pb-36">
-      <pre className="text-accent font-mono text-xs md:text-sm leading-tight select-none mb-10 opacity-80">
-        {TREE}
-      </pre>
+    <section className="relative flex flex-col items-center justify-center min-h-dvh px-6 overflow-hidden grid-bg">
+      {/* Ambient radial glow behind tree */}
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(74, 124, 89, 0.06) 0%, transparent 70%)",
+        }}
+      />
 
-      <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-center mb-5">
+      <div className="animate-tree animate-float">
+        <pre className="text-accent font-mono text-sm md:text-base leading-snug select-none text-center">
+          {TREE.join("\n")}
+        </pre>
+      </div>
+
+      <h1 className="animate-hero-delay-1 text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-[-0.06em] text-center mt-8">
         iroko
       </h1>
 
-      <p className="text-muted text-lg md:text-xl text-center max-w-lg mb-12 leading-relaxed">
-        28 components for Claude Code.
+      <p className="animate-hero-delay-2 text-muted text-lg md:text-xl text-center max-w-md mt-6 leading-relaxed font-mono">
+        <span className="text-foreground">28 components</span> for Claude Code.
         <br />
         Rules. Skills. Agents. Hooks.
-        <br />
-        <span className="text-foreground font-medium">One install.</span>
       </p>
 
       <button
         onClick={copy}
-        className="group flex items-center gap-3 bg-surface border border-border rounded-xl px-6 py-4 font-mono text-sm md:text-base hover:border-accent glow-accent transition-all duration-300 cursor-pointer"
+        className="animate-hero-delay-3 animate-glow group flex items-center gap-3 bg-surface border border-border hover:border-accent rounded-2xl px-7 py-4 font-mono text-sm md:text-base transition-all duration-300 cursor-pointer mt-10"
       >
-        <span className="text-accent select-none">$</span>
+        <span className="text-accent select-none font-semibold">$</span>
         <span className="text-foreground">{command}</span>
-        <span className="text-muted group-hover:text-accent transition-colors text-xs ml-2">
-          {copied ? "✓" : "copy"}
+        <span className="text-muted group-hover:text-accent-light transition-colors text-xs ml-2 font-sans">
+          {copied ? "copied" : "copy"}
         </span>
       </button>
 
-      <div className="flex items-center gap-5 mt-10">
+      <nav className="animate-hero-delay-3 flex items-center gap-6 mt-8 font-mono text-sm">
         <a
           href="https://github.com/James10192/iroko"
-          className="text-muted hover:text-foreground text-sm transition-colors"
+          className="text-muted hover:text-accent-light transition-colors duration-200"
           target="_blank"
           rel="noopener noreferrer"
         >
-          GitHub
+          github
         </a>
-        <span className="text-border text-xs">•</span>
+        <span className="text-border">·</span>
         <a
           href="https://www.npmjs.com/package/@james10192/iroko"
-          className="text-muted hover:text-foreground text-sm transition-colors"
+          className="text-muted hover:text-accent-light transition-colors duration-200"
           target="_blank"
           rel="noopener noreferrer"
         >
           npm
         </a>
-        <span className="text-border text-xs">•</span>
-        <span className="text-muted text-sm font-mono">v1.4.0</span>
+        <span className="text-border">·</span>
+        <span className="text-muted">v1.4.0</span>
+      </nav>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+        <span className="text-muted text-xs font-mono tracking-wider uppercase">scroll</span>
+        <svg
+          className="scroll-indicator w-4 h-4 text-accent"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7" />
+        </svg>
       </div>
     </section>
   );

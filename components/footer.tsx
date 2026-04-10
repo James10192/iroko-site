@@ -1,33 +1,37 @@
 export function Footer() {
   return (
-    <footer className="px-6 py-16 border-t border-border">
+    <footer className="px-6 py-20 border-t border-border">
       <div className="max-w-3xl mx-auto text-center">
-        <p className="text-muted text-sm">
+        <p className="font-mono text-sm text-muted">
           Built by{" "}
           <a
             href="https://github.com/James10192"
-            className="text-foreground hover:text-accent transition-colors font-medium"
+            className="text-foreground hover:text-accent transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
             Marcel DJEDJE-LI
-          </a>{" "}
-          in Abidjan, Cote d&apos;Ivoire.
+          </a>
         </p>
-        <p className="text-muted/60 text-xs mt-3 max-w-md mx-auto leading-relaxed">
-          Used daily on KLASSCI (Laravel SaaS, 3000+ students), MailPulse
-          (Next.js email marketing), E-pagne (fintech).
+        <p className="text-muted/40 text-xs mt-3 max-w-sm mx-auto leading-relaxed font-mono">
+          Abidjan, Cote d&apos;Ivoire · KLASSCI · MailPulse · E-pagne
         </p>
         <div className="flex items-center justify-center gap-8 mt-8">
-          <a href="https://github.com/James10192/iroko" className="text-muted hover:text-foreground text-sm transition-colors" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          <a href="https://www.npmjs.com/package/@james10192/iroko" className="text-muted hover:text-foreground text-sm transition-colors" target="_blank" rel="noopener noreferrer">
-            npm
-          </a>
-          <a href="https://github.com/James10192/iroko/blob/master/LICENSE" className="text-muted hover:text-foreground text-sm transition-colors" target="_blank" rel="noopener noreferrer">
-            MIT
-          </a>
+          {[
+            { label: "GitHub", href: "https://github.com/James10192/iroko" },
+            { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
+            { label: "MIT", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
+          ].map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="text-muted hover:text-accent-light text-sm font-mono transition-colors duration-200"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

@@ -2,48 +2,58 @@
 
 import { useFadeIn } from "./use-fade-in";
 
+const AXES = [
+  { axis: "Architecture", checks: "God class, mixed responsibilities, >300 lines with 3+ concerns" },
+  { axis: "Quality", checks: "N+1 queries, debug code (dd, console.log), duplication" },
+  { axis: "Production", checks: "Stack traces exposed, unprotected routes, missing transactions" },
+  { axis: "SOLID", checks: "Liskov violations, hardcoded roles, broken contract in overrides" },
+];
+
 export function QualityGate() {
   const ref = useFadeIn();
   const refCards = useFadeIn();
 
   return (
-    <section className="px-6 py-24 md:py-32 border-t border-border">
+    <section className="px-6 py-28 md:py-36 border-t border-border">
       <div className="max-w-3xl mx-auto">
         <div ref={ref} className="fade-in">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 text-center tracking-tight">
-            The <span className="text-gradient">quality gate</span>
+          <p className="text-accent font-mono text-sm tracking-wider uppercase mb-4 text-center">
+            Pre-Commit
+          </p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-center tracking-tight">
+            The quality gate
           </h2>
-          <p className="text-muted text-center mb-14 text-lg max-w-xl mx-auto">
-            Every <code className="font-mono text-accent bg-surface px-2 py-0.5 rounded">/commit</code> runs
-            a 4-axes audit on your diff. Critical issues block the commit.
+          <p className="text-muted text-center mt-4 text-lg max-w-xl mx-auto">
+            Every{" "}
+            <code className="font-mono text-accent bg-surface px-2 py-1 rounded-lg text-sm border border-border">
+              /commit
+            </code>{" "}
+            runs a 4-axes audit. Critical issues block the commit.
           </p>
         </div>
 
-        <div className="bg-surface border border-border rounded-2xl overflow-hidden font-mono text-sm glow-accent">
-          <div className="flex items-center gap-2 px-5 py-3 border-b border-border bg-[#0f0f0f]">
-            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-            <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-            <span className="text-muted text-xs ml-3">Quality Gate — Pre-Commit Audit</span>
+        <div className="terminal rounded-2xl overflow-hidden mt-14 animate-glow">
+          <div className="flex items-center gap-2 px-5 py-3.5 border-b border-border">
+            <div className="terminal-dots flex gap-1.5">
+              <span className="w-3 h-3 rounded-full" />
+              <span className="w-3 h-3 rounded-full" />
+              <span className="w-3 h-3 rounded-full" />
+            </div>
+            <span className="text-muted text-xs font-mono ml-3">Quality Gate — Pre-Commit Audit</span>
           </div>
-          <div className="p-6 space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="text-muted">Architecture</span>
-              <span className="text-accent font-semibold">PASS</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-muted">Quality vs Speed</span>
-              <span className="text-accent font-semibold">PASS</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-muted">Production-ready</span>
-              <span className="text-yellow-400 font-semibold">WARN</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-muted">SOLID / Liskov</span>
-              <span className="text-accent font-semibold">PASS</span>
-            </div>
-            <div className="border-t border-border pt-4 mt-4">
+          <div className="p-6 md:p-8 space-y-5 font-mono text-sm">
+            {[
+              { label: "Architecture", status: "PASS", color: "text-accent" },
+              { label: "Quality vs Speed", status: "PASS", color: "text-accent" },
+              { label: "Production-ready", status: "WARN", color: "text-yellow-400" },
+              { label: "SOLID / Liskov", status: "PASS", color: "text-accent" },
+            ].map((row) => (
+              <div key={row.label} className="flex justify-between items-center">
+                <span className="text-muted">{row.label}</span>
+                <span className={`${row.color} font-semibold`}>{row.status}</span>
+              </div>
+            ))}
+            <div className="border-t border-border pt-5 mt-2">
               <div className="flex justify-between items-center">
                 <span className="text-foreground font-semibold cursor-blink">Verdict</span>
                 <span className="text-yellow-400 font-bold text-base">
@@ -55,13 +65,11 @@ export function QualityGate() {
         </div>
 
         <div ref={refCards} className="fade-in grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10">
-          {[
-            { axis: "Architecture", checks: "God class, mixed responsibilities, >300 lines" },
-            { axis: "Quality", checks: "N+1 queries, debug code, duplication" },
-            { axis: "Production", checks: "Stack traces, unprotected routes, missing transactions" },
-            { axis: "SOLID", checks: "Liskov violations, hardcoded roles, broken overrides" },
-          ].map((item) => (
-            <div key={item.axis} className="p-5 bg-surface rounded-xl border border-border hover:border-accent/30 transition-colors duration-200">
+          {AXES.map((item) => (
+            <div
+              key={item.axis}
+              className="p-5 bg-surface rounded-2xl border border-border hover:border-border-hover transition-colors duration-200"
+            >
               <p className="text-foreground font-semibold text-sm mb-2">{item.axis}</p>
               <p className="text-muted text-xs leading-relaxed">{item.checks}</p>
             </div>

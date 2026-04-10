@@ -5,7 +5,7 @@ export function Footer() {
         <p className="font-mono text-sm text-muted">
           Built by{" "}
           <a
-            href="https://github.com/James10192"
+            href="https://astonishing-sprite-8fb0c9.netlify.app/"
             className="text-foreground hover:text-accent transition-colors"
             target="_blank"
             rel="noopener noreferrer"
@@ -20,6 +20,8 @@ export function Footer() {
           {[
             { label: "GitHub", href: "https://github.com/James10192/iroko" },
             { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
+            { label: "LinkedIn", href: "https://www.linkedin.com/in/marcel-djedje-li/" },
+            { label: "Portfolio", href: "https://astonishing-sprite-8fb0c9.netlify.app/" },
             { label: "MIT", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
           ].map((link) => (
             <a

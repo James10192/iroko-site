@@ -20,7 +20,7 @@ export function Footer() {
           {[
             { label: "GitHub", href: "https://github.com/James10192/iroko" },
             { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
-            { label: "LinkedIn", href: "https://www.linkedin.com/in/marcel-djedje-li/" },
+            { label: "LinkedIn", href: "https://www.linkedin.com/in/marcel-djedje-li-099490235/" },
             { label: "Portfolio", href: "https://astonishing-sprite-8fb0c9.netlify.app/" },
             { label: "MIT", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
           ].map((link) => (

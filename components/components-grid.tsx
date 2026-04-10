@@ -30,11 +30,8 @@ const SKILLS = [
 
 const AGENTS = [
   { name: "critic", desc: "Auto-detects CTO/UX/Security lenses" },
-  { name: "explore-codebase", desc: "Deep exploration with file:line refs" },
   { name: "explore-docs", desc: "Docs via ctx7 CLI and MCP" },
-  { name: "websearch", desc: "Best practices and breaking changes" },
   { name: "linkedin-post", desc: "Content generation for LinkedIn" },
-  { name: "action", desc: "Conditional executor for batch tasks" },
 ];
 
 const HOOKS = [
@@ -94,13 +91,13 @@ export function ComponentsGrid() {
             What&apos;s inside
           </h2>
           <p className="text-muted text-center mt-4 text-lg max-w-lg mx-auto">
-            28 components. Each does one thing well.
+            25 components. Each does one thing well.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
           <Section title="Rules" count={5} items={RULES} accent />
-          <Section title="Agents" count={6} items={AGENTS} />
+          <Section title="Agents" count={3} items={AGENTS} />
           <Section title="Skills" count={15} items={SKILLS} accent />
           <div>
             <Section title="Hooks" count={2} items={HOOKS} />

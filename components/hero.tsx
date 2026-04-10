@@ -48,7 +48,7 @@ export function Hero() {
       </h1>
 
       <p className="animate-hero-delay-2 text-muted text-lg md:text-xl text-center max-w-md mt-6 leading-relaxed font-mono">
-        <span className="text-foreground">28 components</span> for Claude Code.
+        <span className="text-foreground">25 components</span> for Claude Code.
         <br />
         Rules. Skills. Agents. Hooks.
       </p>
@@ -83,7 +83,7 @@ export function Hero() {
           npm
         </a>
         <span className="text-border">·</span>
-        <span className="text-muted">v1.4.0</span>
+        <span className="text-muted">v2.0.0</span>
       </nav>
 
       {/* Scroll indicator */}

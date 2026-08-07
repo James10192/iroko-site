@@ -1,11 +1,27 @@
-const LINKS = [
-  { label: "GitHub", href: "https://github.com/James10192/iroko" },
-  { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
-  { label: "Changelog", href: "https://github.com/James10192/iroko/blob/master/CHANGELOG.md" },
-  { label: "MIT license", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
-];
+import type { Dictionary } from "@/i18n/dictionaries/fr";
 
-export function Footer() {
+interface FooterProps {
+  dict: Dictionary["footer"];
+  version: string;
+  site: {
+    github: string;
+    npm: string;
+    changelog: string;
+    license: string;
+    authorName: string;
+    authorUrl: string;
+  };
+  switchHref: string;
+}
+
+export function Footer({ dict, version, site, switchHref }: FooterProps) {
+  const links = [
+    { label: dict.links.github, href: site.github },
+    { label: dict.links.npm, href: site.npm },
+    { label: dict.links.changelog, href: site.changelog },
+    { label: dict.links.license, href: site.license },
+  ];
+
   return (
     <footer className="border-t border-line px-6 py-16">
       <div className="mx-auto max-w-6xl">
@@ -14,25 +30,25 @@ export function Footer() {
             <p className="flex items-center gap-2.5 font-mono text-sm font-semibold">
               <span aria-hidden className="text-ochre">▰</span>
               <span>iroko</span>
-              <span className="font-normal text-muted">v2.2.1</span>
+              <span className="font-normal text-muted">v{version}</span>
             </p>
+            <p className="mt-3 font-mono text-sm text-walnut">{dict.tagline}</p>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
-              Built by{" "}
+              {dict.builtByPrefix}{" "}
               <a
-                href="https://astonishing-sprite-8fb0c9.netlify.app/"
+                href={site.authorUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-ink-soft underline decoration-line-strong underline-offset-4 transition-colors hover:text-ink"
               >
-                Marcel DJEDJE-LI
+                {site.authorName}
               </a>{" "}
-              in Abidjan, Côte d&apos;Ivoire. Open source, MIT licensed,
-              versioned under strict semver.
+              {dict.builtBySuffix}
             </p>
           </div>
 
           <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-sm">
-            {LINKS.map((link) => (
+            {links.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
@@ -43,6 +59,13 @@ export function Footer() {
                 {link.label}
               </a>
             ))}
+            <a
+              href={switchHref}
+              aria-label={dict.langSwitchAria}
+              className="flex min-h-11 items-center rounded-md border border-line-strong px-3 text-ink-soft transition-colors hover:border-walnut hover:text-ink"
+            >
+              {dict.langSwitch}
+            </a>
           </nav>
         </div>
       </div>

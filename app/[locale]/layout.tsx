@@ -61,9 +61,11 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "fr" ? "fr_FR" : "en_US",
       url: `/${locale}`,
+      images: [{ url: "/og.png", width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
+      images: ["/og.png"],
     },
   };
 }

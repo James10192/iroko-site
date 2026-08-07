@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <main className="noise">
+    <main className="grain">
       <Hero />
       <ComponentsGrid />
       <QualityGate />

@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, DM_Sans } from "next/font/google";
+import { Fraunces, DM_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -17,14 +23,14 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "iroko — Claude Code Configuration",
+  title: "iroko — Claude Code configuration",
   description:
-    "28 custom components for Claude Code. Rules, skills, agents, hooks. Built in Abidjan.",
+    "25 hand-built components for Claude Code: rules, skills, agents, hooks. Strict semver, MIT licensed. Built in Abidjan, Côte d'Ivoire.",
   metadataBase: new URL("https://iroko-site.vercel.app"),
   openGraph: {
-    title: "iroko — Claude Code Configuration",
+    title: "iroko — Claude Code configuration",
     description:
-      "28 custom components for Claude Code. Quality gate, parallel agents, plan-and-confirm workflow.",
+      "25 hand-built components for Claude Code. One command installs the quality gate, the planning pipeline, and the whole workflow.",
     type: "website",
   },
   twitter: {
@@ -40,11 +46,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${plexMono.variable} antialiased`}
+      className={`${fraunces.variable} ${dmSans.variable} ${plexMono.variable} antialiased`}
     >
-      <body className="min-h-dvh bg-background text-foreground">
-        {children}
-      </body>
+      <body className="min-h-dvh bg-paper text-ink">{children}</body>
     </html>
   );
 }

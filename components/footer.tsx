@@ -1,41 +1,49 @@
-const FOOTER_LINKS = [
+const LINKS = [
   { label: "GitHub", href: "https://github.com/James10192/iroko" },
   { label: "npm", href: "https://www.npmjs.com/package/@james10192/iroko" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/marcel-djedje-li-099490235/" },
-  { label: "Portfolio", href: "https://astonishing-sprite-8fb0c9.netlify.app/" },
-  { label: "MIT", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
+  { label: "Changelog", href: "https://github.com/James10192/iroko/blob/master/CHANGELOG.md" },
+  { label: "MIT license", href: "https://github.com/James10192/iroko/blob/master/LICENSE" },
 ];
 
 export function Footer() {
   return (
-    <footer className="px-6 py-20 border-t border-border">
-      <div className="max-w-3xl mx-auto text-center">
-        <p className="font-mono text-sm text-muted">
-          Built by{" "}
-          <a
-            href="https://astonishing-sprite-8fb0c9.netlify.app/"
-            className="text-foreground hover:text-accent transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Marcel DJEDJE-LI
-          </a>
-        </p>
-        <p className="text-muted/40 text-xs mt-3 max-w-sm mx-auto leading-relaxed font-mono">
-          Abidjan, Cote d&apos;Ivoire · KLASSCI · MailPulse · E-pagne
-        </p>
-        <div className="flex items-center justify-center gap-8 mt-8">
-          {FOOTER_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-muted hover:text-accent-light text-sm font-mono transition-colors duration-200"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {link.label}
-            </a>
-          ))}
+    <footer className="border-t border-line px-6 py-16">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="flex items-center gap-2.5 font-mono text-sm font-semibold">
+              <span aria-hidden className="text-ochre">▰</span>
+              <span>iroko</span>
+              <span className="font-normal text-muted">v2.2.1</span>
+            </p>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted">
+              Built by{" "}
+              <a
+                href="https://astonishing-sprite-8fb0c9.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-ink-soft underline decoration-line-strong underline-offset-4 transition-colors hover:text-ink"
+              >
+                Marcel DJEDJE-LI
+              </a>{" "}
+              in Abidjan, Côte d&apos;Ivoire. Open source, MIT licensed,
+              versioned under strict semver.
+            </p>
+          </div>
+
+          <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-sm">
+            {LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-11 items-center px-3 text-ink-soft transition-colors hover:text-ink"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

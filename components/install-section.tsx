@@ -4,145 +4,172 @@ import { useState } from "react";
 import { useCopy } from "./use-copy";
 import { useFadeIn } from "./use-fade-in";
 
-const METHODS = [
+const BAR = "▰".repeat(20);
+
+const STEPS = [
   {
-    id: "npx",
-    label: "npx",
+    index: "01",
+    title: "Init",
     command: "npx @james10192/iroko init",
-    note: "No install required",
-    desc: "Run once. Pick what you want. Done.",
+    desc: "Interactive checklist. Everything selected by default — deselect what you don't need, confirm, done.",
+    output: (
+      <>
+        <p className="text-term-ink">
+          <span aria-hidden className="text-term-ochre">▰</span>{" "}
+          <span className="font-semibold">iroko</span>{" "}
+          <span className="text-term-muted">v2.2.1</span>
+        </p>
+        <p className="mt-3 text-term-muted">? Select components to install</p>
+        <p className="mt-1 text-term-ink">
+          <span className="text-term-ochre">◉</span> rules{" "}
+          <span className="text-term-ochre">◉</span> skills{" "}
+          <span className="text-term-ochre">◉</span> agents{" "}
+          <span className="text-term-ochre">◉</span> hooks
+        </p>
+        <p className="mt-3 text-term-ochre">▰ 25 components installed</p>
+      </>
+    ),
   },
   {
-    id: "global",
-    label: "Global",
-    command: "pnpm add -g @james10192/iroko\niroko init",
-    note: "Permanent install",
-    desc: "Install globally. Run iroko from anywhere.",
+    index: "02",
+    title: "List",
+    command: "iroko list",
+    desc: "See what's installed against the full manifest, type by type. The ▰ bar is the same one the CLI draws.",
+    output: (
+      <>
+        <p className="text-term-ink">
+          <span aria-hidden className="text-term-ochre">▰</span>{" "}
+          <span className="font-semibold">Summary</span>
+        </p>
+        <div className="mt-3 space-y-1.5 text-term-muted">
+          {[
+            ["Rules", "5/5"],
+            ["Skills", "15/15"],
+            ["Agents", "3/3"],
+            ["Hooks", "2/2"],
+          ].map(([label, count]) => (
+            <p key={label} className="flex items-center gap-3 overflow-hidden whitespace-nowrap">
+              <span className="w-14 shrink-0">{label}</span>
+              <span aria-hidden className="text-term-ochre">{BAR}</span>
+              <span className="shrink-0 text-term-ink">{count}</span>
+            </p>
+          ))}
+        </div>
+      </>
+    ),
   },
   {
-    id: "plugin",
-    label: "Plugin",
-    command: "/plugin marketplace add James10192/iroko\n/plugin install iroko@iroko",
-    note: "Claude Code native",
-    desc: "Use Claude Code's built-in plugin system.",
-  },
-  {
-    id: "manual",
-    label: "Manual",
-    command: "git clone https://github.com/James10192/iroko.git\ncp -r iroko/rules/* ~/.claude/rules/\ncp -r iroko/skills/* ~/.claude/skills/\ncp -r iroko/agents/* ~/.claude/agents/",
-    note: "Cherry-pick",
-    desc: "Clone the repo. Copy only what you need.",
+    index: "03",
+    title: "Update",
+    command: "iroko update",
+    desc: "Pull the latest versions of what you installed. Strict semver: patch fixes, minor additions, major renames — never a surprise.",
+    output: (
+      <>
+        <p className="text-term-muted">Checking manifest…</p>
+        <p className="mt-2 text-term-ink">
+          <span aria-hidden className="text-term-ochre">▴</span> commit{" "}
+          <span className="text-term-muted">2.1.0 →</span>{" "}
+          <span className="text-term-ochre">2.2.1</span>
+        </p>
+        <p className="mt-3 text-term-ochre">▰ 1 component updated</p>
+      </>
+    ),
   },
 ];
 
-const PLUGINS = [
-  { name: "AI Blueprint", author: "Melvynx", url: "https://github.com/Melvynx/aiblueprint", desc: "APEX methodology, ralph-loop, ultrathink, oneshot" },
-  { name: "Impeccable", author: "Paul Bakaus", url: "https://github.com/pbakaus/impeccable", desc: "Design quality and adaptation skills" },
-  { name: "Superpowers Laravel", author: "JP Caparas", url: "https://github.com/jpcaparas/superpowers-laravel", desc: "50+ Laravel-specific patterns" },
-  { name: "Claude Official", author: "Anthropic", url: "https://github.com/anthropics/claude-plugins-official", desc: "feature-dev, pr-review, vercel, slack" },
+const ALT_METHODS = [
+  { label: "Global install", command: "pnpm add -g @james10192/iroko" },
+  { label: "Claude Code plugin", command: "/plugin marketplace add James10192/iroko" },
+  { label: "Manual cherry-pick", command: "git clone https://github.com/James10192/iroko.git" },
 ];
 
-export function InstallSection() {
-  const [active, setActive] = useState("npx");
-  const { copied, copy } = useCopy();
+function StepBlock({ step }: { step: (typeof STEPS)[number] }) {
   const ref = useFadeIn();
-  const refPlugins = useFadeIn();
-  const method = METHODS.find((m) => m.id === active)!;
+  const { copied, copy } = useCopy();
 
   return (
-    <section className="px-6 py-28 md:py-36 border-t border-border">
-      <div className="max-w-4xl mx-auto">
-        <div ref={ref} className="fade-in">
-          <p className="text-accent font-mono text-sm tracking-wider uppercase mb-4 text-center">
-            Get started
-          </p>
-          <h2 className="text-4xl md:text-6xl font-extrabold text-center tracking-tight leading-tight">
-            30 seconds to
-            <br />
-            <span className="text-gradient">a better workflow</span>
+    <div ref={ref} className="fade-in grid grid-cols-1 gap-8 border-t border-line pt-10 md:grid-cols-12">
+      <div className="md:col-span-5">
+        <div className="flex items-baseline gap-4">
+          <span className="font-mono text-sm text-walnut">{step.index}</span>
+          <h3 className="font-display text-2xl font-medium tracking-tight">{step.title}</h3>
+        </div>
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-muted">{step.desc}</p>
+      </div>
+      <div className="md:col-span-7">
+        <div className="term overflow-hidden rounded-xl">
+          <div className="term-header flex min-h-11 items-center justify-between gap-4 px-5 py-2.5">
+            <code className="truncate font-mono text-[13px] text-term-ink">
+              <span className="text-term-ochre">$ </span>
+              {step.command}
+            </code>
+            <button
+              onClick={() => copy(step.command)}
+              aria-label={`Copy command: ${step.command}`}
+              className="shrink-0 rounded-md border border-term-line px-2.5 py-1.5 font-mono text-xs text-term-muted transition-colors hover:border-term-walnut hover:text-term-ink"
+            >
+              {copied ? "copied ✓" : "copy"}
+            </button>
+          </div>
+          <div className="p-5 font-mono text-[13px] leading-relaxed md:px-6">{step.output}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function InstallSection() {
+  const refHead = useFadeIn();
+  const refAlt = useFadeIn();
+  const { copied, copy } = useCopy();
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  return (
+    <section className="px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <div ref={refHead} className="fade-in mb-16 max-w-3xl">
+          <p className="font-mono text-xs uppercase tracking-[0.25em] text-walnut">Quickstart</p>
+          <h2 className="mt-5 font-display text-4xl font-medium leading-tight tracking-tight md:text-5xl">
+            Three commands in.
           </h2>
-          <p className="text-muted text-center mt-6 text-lg max-w-xl mx-auto">
-            Interactive checklist. Everything selected by default. Deselect what you don&apos;t need. That&apos;s it.
+          <p className="mt-6 text-lg leading-relaxed text-ink-soft">
+            No config files to write, no account to create. The CLI walks you
+            through everything.
           </p>
-
-          {/* Method cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-14">
-            {METHODS.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => setActive(m.id)}
-                className={`group text-left p-4 rounded-2xl border transition-all duration-300 cursor-pointer ${
-                  active === m.id
-                    ? "bg-accent/10 border-accent"
-                    : "bg-surface border-border hover:border-border-hover"
-                }`}
-              >
-                <span
-                  className={`font-mono text-sm font-semibold block mb-1 transition-colors ${
-                    active === m.id ? "text-accent-light" : "text-foreground"
-                  }`}
-                >
-                  {m.label}
-                </span>
-                <span className="text-muted text-xs leading-relaxed block">
-                  {m.desc}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          {/* Terminal */}
-          <div className="terminal rounded-2xl overflow-hidden mt-8 animate-glow">
-            <div className="flex items-center justify-between px-5 py-3 border-b border-border">
-              <div className="terminal-dots flex gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full" />
-                <span className="w-2.5 h-2.5 rounded-full" />
-                <span className="w-2.5 h-2.5 rounded-full" />
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="text-muted text-xs font-mono">{method.note}</span>
-                <button
-                  onClick={() => copy(method.command)}
-                  className="text-muted hover:text-accent text-xs font-mono px-2.5 py-1 rounded-lg border border-border hover:border-accent/40 transition-all duration-200 cursor-pointer"
-                >
-                  {copied ? "copied ✓" : "copy"}
-                </button>
-              </div>
-            </div>
-            <pre className="p-6 md:p-8 text-accent text-sm md:text-base whitespace-pre-wrap font-mono leading-relaxed">
-              {method.command}
-            </pre>
-          </div>
         </div>
 
-        {/* Recommended plugins */}
-        <div ref={refPlugins} className="fade-in mt-28">
-          <div className="text-center mb-10">
-            <h3 className="text-2xl font-bold text-foreground mb-3">Goes well with</h3>
-            <p className="text-muted text-sm max-w-md mx-auto">
-              These plugins complement iroko. Different authors, same ecosystem. Install them separately.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {PLUGINS.map((p) => (
-              <a
-                key={p.name}
-                href={p.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex flex-col p-5 bg-surface border border-border rounded-2xl hover:border-accent/30 hover:bg-surface-hover transition-all duration-300"
+        <div className="space-y-12">
+          {STEPS.map((step) => (
+            <StepBlock key={step.index} step={step} />
+          ))}
+        </div>
+
+        {/* Alternate install methods */}
+        <div ref={refAlt} className="fade-in mt-20 border-t border-line pt-8">
+          <p className="mb-5 font-mono text-xs uppercase tracking-[0.25em] text-muted">
+            Other ways to install
+          </p>
+          <div className="grid grid-cols-1 gap-x-10 gap-y-3 lg:grid-cols-3">
+            {ALT_METHODS.map((m, i) => (
+              <button
+                key={m.label}
+                onClick={() => {
+                  copy(m.command);
+                  setCopiedIndex(i);
+                }}
+                aria-label={`Copy command: ${m.command}`}
+                className="group flex min-h-11 flex-col items-start gap-0.5 rounded-lg text-left"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-foreground text-sm font-semibold group-hover:text-accent-light transition-colors">
-                    {p.name}
+                <span className="text-xs font-medium text-ink-soft">
+                  {m.label}
+                  <span className="ml-2 font-mono text-muted opacity-0 transition-opacity group-hover:opacity-100">
+                    {copied && copiedIndex === i ? "copied ✓" : "click to copy"}
                   </span>
-                  <svg className="w-3.5 h-3.5 text-muted/40 group-hover:text-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
-                  </svg>
-                </div>
-                <span className="text-muted text-xs leading-relaxed">{p.desc}</span>
-                <span className="text-muted/30 text-xs mt-3 font-mono">{p.author}</span>
-              </a>
+                </span>
+                <code className="font-mono text-[13px] text-ochre-ink transition-colors group-hover:text-ink">
+                  {m.command}
+                </code>
+              </button>
             ))}
           </div>
         </div>

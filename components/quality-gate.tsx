@@ -2,116 +2,129 @@
 
 import { useFadeIn } from "./use-fade-in";
 
-const GATE_RESULTS = [
-  { label: "Architecture", status: "PASS", color: "text-accent" },
-  { label: "Quality vs Speed", status: "PASS", color: "text-accent" },
-  { label: "Production-ready", status: "WARN", color: "text-yellow-400" },
-  { label: "SOLID / Liskov", status: "PASS", color: "text-accent" },
+const AXES = [
+  {
+    axis: "Architecture",
+    desc: "God classes, mixed responsibilities, patterns ignored",
+  },
+  {
+    axis: "Quality vs speed",
+    desc: "N+1 queries, debug code left behind, missing validation",
+  },
+  {
+    axis: "Production-grade",
+    desc: "Exposed stack traces, unprotected routes, missing transactions",
+  },
+  {
+    axis: "SOLID",
+    desc: "Liskov violations, hardcoded roles instead of permissions",
+  },
 ];
 
-const AXES = [
-  { axis: "Architecture", desc: "God classes, mixed responsibilities, files over 300 lines with 3+ concerns" },
-  { axis: "Quality", desc: "N+1 queries, debug code left behind, copy-paste duplication" },
-  { axis: "Production", desc: "Exposed stack traces, unprotected routes, missing database transactions" },
-  { axis: "SOLID", desc: "Liskov violations, hardcoded roles instead of permissions, broken overrides" },
+const RESULTS = [
+  { label: "Architecture", status: "PASS", warn: false },
+  { label: "Quality vs speed", status: "PASS", warn: false },
+  { label: "Production-grade", status: "WARN", warn: true },
+  { label: "SOLID", status: "PASS", warn: false },
 ];
 
 export function QualityGate() {
-  const ref = useFadeIn();
-  const refStory = useFadeIn();
-  const refTerminal = useFadeIn();
+  const refCopy = useFadeIn();
+  const refTerm = useFadeIn();
 
   return (
-    <section className="px-6 py-28 md:py-36 border-t border-border">
-      <div className="max-w-5xl mx-auto">
-        <div ref={ref} className="fade-in text-center mb-20">
-          <p className="text-accent font-mono text-sm tracking-wider uppercase mb-4">
-            Pre-Commit
-          </p>
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-            Every commit gets
-            <br />
-            <span className="text-gradient">interrogated</span>
-          </h2>
-        </div>
-
-        {/* Story + Terminal side by side */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Story side */}
-          <div ref={refStory} className="fade-in">
-            <p className="text-foreground text-xl font-medium leading-relaxed mb-6">
-              Stack traces in production. Debug code in the diff. Unprotected routes.
-              N+1 queries nobody noticed.
+    <section className="border-y border-line bg-card px-6 py-24 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-16">
+          {/* Copy */}
+          <div ref={refCopy} className="fade-in lg:col-span-6">
+            <p className="font-mono text-xs uppercase tracking-[0.25em] text-walnut">
+              The flagship · <code className="normal-case">/commit</code>
             </p>
-            <p className="text-muted leading-relaxed mb-8">
-              The quality gate catches what code review misses. Every{" "}
-              <code className="font-mono text-accent bg-surface px-2 py-0.5 rounded-lg text-sm border border-border">
-                /commit
-              </code>{" "}
-              triggers a 4-axes audit. PASS means your code ships. BLOCK means it gets fixed first. No exceptions.
+            <h2 className="mt-5 font-display text-4xl font-medium leading-tight tracking-tight md:text-5xl">
+              Every commit gets audited first.
+            </h2>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+              The pre-commit quality gate reads your diff and interrogates it on
+              four axes before anything reaches the repo. PASS ships. WARN asks
+              you to confirm. BLOCK gets fixed first — no exceptions.
             </p>
 
-            <div className="space-y-4">
+            <dl className="mt-10 space-y-5">
               {AXES.map((item) => (
-                <div key={item.axis} className="group flex items-start gap-3 hover:translate-x-1 transition-transform duration-200">
-                  <span className="text-accent font-mono text-sm font-semibold shrink-0 mt-0.5 w-24">
+                <div key={item.axis} className="flex items-baseline gap-4">
+                  <dt className="flex w-40 shrink-0 items-center gap-2 font-mono text-sm font-semibold text-ochre-ink">
+                    <span aria-hidden className="text-xs text-ochre">▰</span>
                     {item.axis}
-                  </span>
-                  <span className="text-muted text-sm leading-relaxed">{item.desc}</span>
+                  </dt>
+                  <dd className="text-sm leading-relaxed text-muted">{item.desc}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
           </div>
 
-          {/* Terminal side */}
-          <div ref={refTerminal} className="fade-in">
-            <div className="terminal rounded-2xl overflow-hidden animate-glow">
-              <div className="flex items-center gap-2 px-5 py-3.5 border-b border-border">
-                <div className="terminal-dots flex gap-1.5">
-                  <span className="w-3 h-3 rounded-full" />
-                  <span className="w-3 h-3 rounded-full" />
-                  <span className="w-3 h-3 rounded-full" />
-                </div>
-                <span className="text-muted text-xs font-mono ml-3">
-                  Quality Gate
+          {/* Terminal */}
+          <div ref={refTerm} className="fade-in lg:col-span-6">
+            <div className="term overflow-hidden rounded-2xl shadow-[0_24px_60px_-30px_rgba(36,29,17,0.5)]">
+              <div className="term-header flex items-center gap-2 px-5 py-3.5">
+                <span aria-hidden className="flex gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-term-line" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-term-line" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-term-line" />
                 </span>
+                <span className="ml-2 font-mono text-xs text-term-muted">quality gate</span>
               </div>
-              <div className="p-6 md:p-8 font-mono text-sm">
-                <div className="text-muted/50 text-xs mb-6">$ git commit -m &quot;feat: add user endpoint&quot;</div>
-
-                <div className="space-y-4">
-                  {GATE_RESULTS.map((row) => (
-                    <div key={row.label} className="flex justify-between items-center">
-                      <span className="text-muted">{row.label}</span>
-                      <span className={`${row.color} font-semibold`}>{row.status}</span>
+              <div className="p-6 font-mono text-sm leading-relaxed md:p-8">
+                <p className="text-term-muted">
+                  <span className="text-term-ochre">$</span> /commit
+                </p>
+                <p className="mt-5 text-term-ink">
+                  <span aria-hidden className="text-term-ochre">▰</span>{" "}
+                  <span className="font-semibold">Quality Gate</span>{" "}
+                  <span className="text-term-muted">— pre-commit audit</span>
+                </p>
+                <div aria-hidden className="my-3 overflow-hidden whitespace-nowrap text-term-line">
+                  {"─".repeat(60)}
+                </div>
+                <div className="space-y-2.5">
+                  {RESULTS.map((row) => (
+                    <div key={row.label} className="flex items-center justify-between">
+                      <span className="text-term-muted">{row.label}</span>
+                      <span
+                        className={
+                          row.warn
+                            ? "font-semibold text-warn"
+                            : "font-semibold text-term-ochre"
+                        }
+                      >
+                        {row.status}
+                      </span>
                     </div>
                   ))}
                 </div>
-
-                <div className="border-t border-border pt-5 mt-6">
-                  <div className="flex justify-between items-center">
-                    <span className="text-foreground font-semibold cursor-blink">Verdict</span>
-                    <span className="text-yellow-400 font-bold">WARN</span>
-                  </div>
-                  <p className="text-muted/50 text-xs mt-3">
-                    1 warning found. Confirm to proceed or fix first.
-                  </p>
+                <div aria-hidden className="my-3 overflow-hidden whitespace-nowrap text-term-line">
+                  {"─".repeat(60)}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-term-ink">Verdict</span>
+                  <span className="font-semibold text-warn">WARN — confirm or fix</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-              <div className="bg-surface rounded-xl border border-border py-3">
-                <span className="text-accent font-mono text-lg font-bold block">PASS</span>
-                <span className="text-muted text-[10px] uppercase tracking-wider">Ships</span>
+            {/* Verdict legend */}
+            <div className="mt-5 grid grid-cols-3 gap-3 text-center font-mono">
+              <div className="rounded-xl border border-line-strong bg-paper py-3">
+                <span className="block text-sm font-semibold text-ochre-ink">PASS</span>
+                <span className="text-xs text-muted">ships</span>
               </div>
-              <div className="bg-surface rounded-xl border border-yellow-400/20 py-3">
-                <span className="text-yellow-400 font-mono text-lg font-bold block">WARN</span>
-                <span className="text-muted text-[10px] uppercase tracking-wider">Confirm</span>
+              <div className="rounded-xl border border-line-strong bg-paper py-3">
+                <span className="block text-sm font-semibold text-warn">WARN</span>
+                <span className="text-xs text-muted">confirm</span>
               </div>
-              <div className="bg-surface rounded-xl border border-red-400/20 py-3">
-                <span className="text-red-400 font-mono text-lg font-bold block">BLOCK</span>
-                <span className="text-muted text-[10px] uppercase tracking-wider">Fix first</span>
+              <div className="rounded-xl border border-line-strong bg-paper py-3">
+                <span className="block text-sm font-semibold text-ink">BLOCK</span>
+                <span className="text-xs text-muted">fix first</span>
               </div>
             </div>
           </div>

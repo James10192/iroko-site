@@ -36,12 +36,12 @@ export const MANIFEST = [
   { name: "stay-in-scope", type: "rule", step: "cadrer", pack: "guide" },
   { name: "ship-quality", type: "rule", step: "construire", pack: "default" },
   { name: "token-efficiency", type: "rule", step: "construire", pack: "guide" },
-  { name: "docs-first", type: "rule", step: "documenter", pack: "default" },
+  { name: "docs-first", type: "rule", step: "documenter", pack: "guide" },
   { name: "global-preferences", type: "rule", step: "construire", pack: "default" },
   // Skills (12)
   { name: "plan-and-confirm", type: "skill", step: "cadrer", pack: "guide" },
   { name: "pick-stack", type: "skill", step: "cadrer", pack: "default" },
-  { name: "sketch", type: "skill", step: "illustrer", pack: "default" },
+  { name: "sketch", type: "skill", step: "illustrer", pack: "guide" },
   { name: "read-docs", type: "skill", step: "documenter", pack: "guide" },
   { name: "demarrer", type: "skill", step: "cadrer", pack: "guide" },
   { name: "commit", type: "skill", step: "verifier", pack: "guide" },
@@ -54,8 +54,8 @@ export const MANIFEST = [
   // Agents (4)
   { name: "critic", type: "agent", step: "cadrer", pack: "guide" },
   { name: "explore-docs", type: "agent", step: "documenter", pack: "guide" },
-  { name: "explore-codebase", type: "agent", step: "cadrer", pack: "default" },
-  { name: "websearch", type: "agent", step: "documenter", pack: "default" },
+  { name: "explore-codebase", type: "agent", step: "cadrer", pack: "guide" },
+  { name: "websearch", type: "agent", step: "documenter", pack: "guide" },
   // Hook (1)
   { name: "guard-destructive", type: "hook", step: "construire", pack: "guide" },
 ] as const satisfies readonly ManifestComponent[];

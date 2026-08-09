@@ -2,7 +2,7 @@
 // Version and package identity mirror the CLI (src/lib/banner.ts).
 
 export const SITE = {
-  version: "3.0.0",
+  version: "3.1.0",
   pkg: "@james10192/iroko",
   url: "https://iroko-site.vercel.app",
   installCommand: "npx @james10192/iroko init",

@@ -73,7 +73,7 @@ export function Hero({
 
       {/* Hero body */}
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-14 px-6 pb-16 pt-14 md:pt-20 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           <p className="animate-rise font-mono text-xs uppercase tracking-[0.25em] text-walnut">
             {dict.kicker}
           </p>
@@ -118,7 +118,7 @@ export function Hero({
         </div>
 
         {/* CLI banner, reproduced faithfully */}
-        <div className="animate-rise-2 lg:col-span-5">
+        <div className="min-w-0 animate-rise-2 lg:col-span-5">
           <div className="term overflow-hidden rounded-2xl shadow-[0_24px_60px_-30px_rgba(36,29,17,0.5)]">
             <div className="term-header flex items-center gap-2 px-5 py-3.5">
               <span aria-hidden className="flex gap-1.5">

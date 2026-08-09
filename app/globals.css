@@ -157,3 +157,10 @@ code {
 .term-header {
   border-bottom: 1px solid var(--term-line);
 }
+
+/* Verrou anti-debordement horizontal : sur iOS Safari, un contenu insecable
+   plus large que l ecran rend toute la page scrollable lateralement. On
+   verrouille au niveau racine ; les blocs code gerent leur propre defilement. */
+html, body {
+  overflow-x: clip;
+}

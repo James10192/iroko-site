@@ -217,7 +217,7 @@ export function InstallSection({ dict, commands, version, listCounts }: InstallS
                     {copied && copiedIndex === i ? dict.copiedLabel : dict.altCopyHint}
                   </span>
                 </span>
-                <code className="font-mono text-[13px] text-ochre-ink transition-colors group-hover:text-ink">
+                <code className="min-w-0 break-all font-mono text-[13px] text-ochre-ink transition-colors group-hover:text-ink">
                   {m.command}
                 </code>
               </button>

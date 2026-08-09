@@ -91,6 +91,7 @@ export default async function Home({
               resultLine: fmt(dict.quickstart.steps.guide.resultLine, vars),
             },
             list: dict.quickstart.steps.list,
+            doctor: dict.quickstart.steps.doctor,
             update: {
               ...dict.quickstart.steps.update,
               resultLine: fmt(dict.quickstart.steps.update.resultLine, vars),
@@ -101,6 +102,7 @@ export default async function Home({
           init: SITE.installCommand,
           guide: SITE.guideCommand,
           list: SITE.listCommand,
+          doctor: SITE.doctorCommand,
           update: SITE.updateCommand,
         }}
         version={SITE.version}

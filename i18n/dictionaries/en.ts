@@ -172,7 +172,7 @@ export const en: Dictionary = {
 
   quickstart: {
     kicker: "Quickstart",
-    title: "Four commands in.",
+    title: "Five commands in.",
     intro:
       "No config files to write, no account to create. The CLI walks you through everything.",
     copyLabel: "copy",
@@ -201,6 +201,12 @@ export const en: Dictionary = {
           agents: "Agents",
           hooks: "Hooks",
         },
+      },
+      doctor: {
+        title: "Doctor",
+        desc: "Environment diagnostic: node, git, gh, the skills' tools and the Context7 MCP. Every missing item ships with its exact install command.",
+        okLine: "▰ node, git, claude CLI: OK",
+        fixLine: "▱ context7 MCP: to install (command shown)",
       },
       update: {
         title: "Update",

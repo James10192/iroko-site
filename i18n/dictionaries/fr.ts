@@ -173,7 +173,7 @@ export const fr = {
 
   quickstart: {
     kicker: "Quickstart",
-    title: "Quatre commandes, et c'est planté.",
+    title: "Cinq commandes, et c'est planté.",
     intro:
       "Aucun fichier de config à écrire, aucun compte à créer. Le CLI vous guide de bout en bout.",
     copyLabel: "copier",
@@ -202,6 +202,12 @@ export const fr = {
           agents: "Agents",
           hooks: "Hooks",
         },
+      },
+      doctor: {
+        title: "Doctor",
+        desc: "Le diagnostic de l'environnement : node, git, gh, les outils des skills et le MCP Context7. Chaque manque s'affiche avec sa commande d'installation exacte.",
+        okLine: "▰ node, git, claude CLI : OK",
+        fixLine: "▱ MCP context7 : à installer (commande affichée)",
       },
       update: {
         title: "Update",

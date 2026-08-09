@@ -7,15 +7,16 @@ export const SITE = {
   url: "https://iroko-site.vercel.app",
   installCommand: "npx @james10192/iroko init",
   guideCommand: "npx @james10192/iroko init --guide",
-  listCommand: "iroko list",
-  updateCommand: "iroko update",
+  listCommand: "npx @james10192/iroko list",
+  updateCommand: "npx @james10192/iroko update",
+  doctorCommand: "npx @james10192/iroko doctor",
   github: "https://github.com/James10192/iroko",
   npm: "https://www.npmjs.com/package/@james10192/iroko",
   changelog: "https://github.com/James10192/iroko/blob/master/CHANGELOG.md",
   license: "https://github.com/James10192/iroko/blob/master/LICENSE",
   author: {
     name: "Marcel DJEDJE-LI",
-    url: "https://astonishing-sprite-8fb0c9.netlify.app/",
+    url: "https://marcel-djedjeli-portfolio.vercel.app",
   },
 } as const;
 

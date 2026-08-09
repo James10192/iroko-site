@@ -9,7 +9,7 @@ const BAR = "▰".repeat(20);
 
 interface InstallSectionProps {
   dict: Dictionary["quickstart"];
-  commands: { init: string; guide: string; list: string; update: string };
+  commands: { init: string; guide: string; list: string; doctor: string; update: string };
   version: string;
   listCounts: { rules: number; skills: number; agents: number; hooks: number };
 }
@@ -146,6 +146,18 @@ export function InstallSection({ dict, commands, version, listCounts }: InstallS
     },
     {
       index: "04",
+      title: dict.steps.doctor.title,
+      command: commands.doctor,
+      desc: dict.steps.doctor.desc,
+      output: (
+        <>
+          <p className="text-term-ink">{dict.steps.doctor.okLine}</p>
+          <p className="mt-3 text-term-muted">{dict.steps.doctor.fixLine}</p>
+        </>
+      ),
+    },
+    {
+      index: "05",
       title: dict.steps.update.title,
       command: commands.update,
       desc: dict.steps.update.desc,
